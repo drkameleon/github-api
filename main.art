@@ -1,0 +1,60 @@
+;========================================
+; GitHub API
+; Package for Arturo
+;
+; (c) 2023 Dr.Kameleon
+;          aka Yanis Zafirópulos
+;========================================
+; MIT License
+;========================================
+
+define :githubApi [apiKey][
+
+    ;---------------------------
+    ; Initialization
+    ;---------------------------
+
+    init: [
+        this\apiHeaders: (null? this\apiKey)? 
+            -> #[]
+            -> #[
+                "Accept": "application/vnd.github+json"
+                "Authorization": ~{Bearer |this\apiKey|}
+                "X-GitHub-Api-Version": "2022-11-28"
+            ]
+        
+        this\UseGhTool?: false
+    ]
+
+    ;---------------------------
+    ; Private methods
+    ;---------------------------
+
+    processRequest: function [req][
+        (this\UseGhTool?)?[
+            got: execute ~{!sh
+                gh api -H "Accept: |this\accepting|" -H "X-GitHub-Api-Version: |this\apiVersion|" /|req|
+            }
+            return read.json got
+        ][
+            got: request.get.headers: this\apiHeaders  ~{https://api.github.com/|req|} ø
+            return read.json got\body
+        ]
+    ]
+
+    ;---------------------------
+    ; Public methods
+    ;---------------------------
+    
+    getRepository: function [owner, repo] ->
+        return this\processRequest ~{repos/|owner|/|repo|}
+
+    getRepositoryContributors: function [owner, repo] ->
+        return this\processRequest ~{repos/|owner|/|repo|/contributors}
+
+    getRepositoryLanguages: function [owner, repo] ->
+        return this\processRequest ~{repos/|owner|/|repo|/languages}
+
+    getRepositoryTags: function [owner, repo] ->
+        return this\processRequest ~{repos/|owner|/|repo|/tags}
+]
