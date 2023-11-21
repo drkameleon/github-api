@@ -57,4 +57,10 @@ define :githubApi [apiKey][
 
     getRepositoryTags: function [owner, repo] ->
         return this\processRequest ~{repos/|owner|/|repo|/tags}
+
+    getRepositoryTopics: function [owner, repo] ->
+        return this\processRequest ~{repos/|owner|/|repo|/topics}
+
+    getUserRepositories: function [username] ->
+        return this\processRequest ~{users/|username|/repos}
 ]
