@@ -1,0 +1,6 @@
+import relative "main"
+
+github: to :githubApi [ø]
+
+do ::
+    inspect github\getRepositoryLanguages "arturo-lang" "arturo"
