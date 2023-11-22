@@ -46,21 +46,27 @@ define :githubApi [apiKey][
     ; Public methods
     ;---------------------------
     
-    getRepository: function [owner, repo] ->
+    getRepository: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|}
+    ]
 
-    getRepositoryContributors: function [owner, repo] ->
+    getRepositoryContributors: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/contributors}
+    ]
 
-    getRepositoryLanguages: function [owner, repo] ->
+    getRepositoryLanguages: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/languages}
+    ]
 
-    getRepositoryTags: function [owner, repo] ->
+    getRepositoryTags: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/tags}
+    ]
 
-    getRepositoryTopics: function [owner, repo] ->
+    getRepositoryTopics: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/topics}
+    ]
 
-    getUserRepositories: function [username] ->
+    getUserRepositories: function [username][
         return this\processRequest ~{users/|username|/repos}
+    ]
 ]
