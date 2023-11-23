@@ -45,28 +45,39 @@ define :githubApi [apiKey][
     ;---------------------------
     ; Public methods
     ;---------------------------
-    
-    getRepository: function [owner, repo][
+
+    getRepo: function [owner, repo][
+        ;; description: « initiate a new graph environment with given name and body
+        ;; returns: :block
         return this\processRequest ~{repos/|owner|/|repo|}
     ]
 
-    getRepositoryContributors: function [owner, repo][
+    getRepoContributors: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/contributors}
     ]
 
-    getRepositoryLanguages: function [owner, repo][
+    getRepoLanguages: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/languages}
     ]
 
-    getRepositoryTags: function [owner, repo][
+    getRepoTags: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/tags}
     ]
 
-    getRepositoryTopics: function [owner, repo][
+    getRepoTopics: function [owner, repo][
         return this\processRequest ~{repos/|owner|/|repo|/topics}
     ]
 
-    getUserRepositories: function [username][
+    getUserRepos: function [username][
         return this\processRequest ~{users/|username|/repos}
+    ]
+]
+
+
+zzz: #[
+    getRepo: function [owner :string :literal, repo :string :literal][
+        ;; description: « initiate a new graph environment with given name and body
+        ;; returns: :block
+        return this\processRequest ~{repos/|owner|/|repo|}
     ]
 ]
